@@ -187,6 +187,7 @@ $('#confirm').click(function() {
             $('#AWS').show();
             break;
         default:
+            $('#input_cloud_creds').hide();
             break;
     }
 });
