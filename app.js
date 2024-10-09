@@ -131,15 +131,22 @@ $('.dropdown-select').change(function() {
     // console.log('Selected Option ID:', selectedId);
     // console.log('Selected Option Value:', selectedOption);
     // console.log('Selected Option Text:', selectedText);
-
+    $('#message-container1').empty();  // Clear the message when any option is selected
+    $('#message-container2').empty();
     switch (selectedId) {
         case 'dropdown1':
             if (selectedOption == "Are you looking for a GPU") $('#gpu_options').show();
-            else $('#gpu_options, #gpu_prices_limit, #rate_card, #select_cloud, #select_gpu_details, #input_cloud_creds').hide();
+            else if (selectedOption == "Do you have an LLM in mind") {
+                $('#message-container1').text("We are still working on this and plan to release it soon. Stay tuned. Gracias 🙏");
+                $('#gpu_options, #gpu_prices_limit, #rate_card, #select_cloud, #select_gpu_details, #input_cloud_creds').hide();
+            } else $('#gpu_options, #gpu_prices_limit, #rate_card, #select_cloud, #select_gpu_details, #input_cloud_creds').hide();
             break;
         case 'dropdown2':
             if (selectedOption == "Do you want to view rate card across 20 GPU clouds") $('#gpu_prices_limit').show();
-            else $('#gpu_prices_limit, #rate_card, #select_cloud, #select_gpu_details, #input_cloud_creds').hide();
+            else if (selectedOption == "Do you have an LLM task in mind") {
+                $('#message-container2').text("We are still working on this and plan to release it soon. Stay tuned. Gracias 🙏");
+                $('#gpu_prices_limit, #rate_card, #select_cloud, #select_gpu_details, #input_cloud_creds').hide();
+            } else $('#gpu_prices_limit, #rate_card, #select_cloud, #select_gpu_details, #input_cloud_creds').hide();
             break;
         case 'dropdown4':
             const selectedCloud = $('#dropdown3').val();
