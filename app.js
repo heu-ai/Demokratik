@@ -197,6 +197,7 @@ $('#confirm').click(function() {
             $('#input_cloud_creds').hide();
             break;
     }
+    $('#message-container3').text('We are still working on this and plan to release it soon. Stay tuned. Gracias 🙏').show();
 });
 
 
