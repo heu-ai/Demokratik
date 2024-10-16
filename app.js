@@ -1,6 +1,6 @@
 let total_pages = 1;
 let current_page = 1;
-let dataTable, sliderValue, gpuType, cloudGpuTypes;
+let dataTable, sliderValue, gpuType, cloudGpuTypes, selectedCloud, selectedGpu;
 
 
 // hide all options at start
@@ -74,17 +74,15 @@ function populateDropdown(query, options) {
 }
 
 // Function to fetch GPU rates
-function fetchGpuRates( gpuType, sliderValue, page_number ) {
+function fetchGpuRates(gpuType, sliderValue, page_number) {
     showLoading()
 
     $.ajax({
         url: `https://us-central1-demokratik-ai.cloudfunctions.net/get_gpu_rates?gpu_type=${gpuType}&cost_limit=${sliderValue}&page_number=${page_number}`, // API endpoint
         method: 'GET',
         dataType: 'json',
-        success: function(data) {
+        success: function (data) {
             // console.log(data);
-            hideLoading();
-
             $('#rate_card').show();
 
             current_page = data.current_page;
@@ -94,9 +92,8 @@ function fetchGpuRates( gpuType, sliderValue, page_number ) {
 
             $('#select_cloud, #select_gpu_details').show();
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
             console.error(error);
-            hideLoading();
         }
     });
 }
@@ -112,7 +109,7 @@ function setSpeed(speed, needle, priceDisplay) {
 }
 
 // Slider for GPU prices
-$('.slider').on('input', function() {
+$('.slider').on('input', function () {
     const value = parseFloat($(this).val());
     const container = $(this).closest('.gpu-container');
     const needle = container.find('.needle');
@@ -124,7 +121,7 @@ $('.slider').on('input', function() {
 });
 
 // Dropdown change event
-$('.dropdown-select').change(function() {
+$('.dropdown-select').change(function () {
     const selectedId = $(this).attr('id');
     const selectedOption = $(this).val();
     const selectedText = $(this).find('option:selected').text();
@@ -141,9 +138,13 @@ $('.dropdown-select').change(function() {
             if (selectedOption == "Do you want to view rate card across 20 GPU clouds") $('#gpu_prices_limit').show();
             else $('#gpu_prices_limit, #rate_card, #select_cloud, #select_gpu_details, #input_cloud_creds').hide();
             break;
+        case 'dropdown3':
+            selectedCloud = $('#dropdown3').val();
+            populateDropdown('#dropdown4', Object.keys(cloudGpuTypes[selectedCloud]));
+            selectedGpu = $('#dropdown4').val();
+            populateDropdown('#dropdown5', cloudGpuTypes[selectedCloud][selectedGpu]);
         case 'dropdown4':
-            const selectedCloud = $('#dropdown3').val();
-            const selectedGpu = $('#dropdown4').val();
+            selectedGpu = $('#dropdown4').val();
             populateDropdown('#dropdown5', cloudGpuTypes[selectedCloud][selectedGpu]);
         default:
             break;
@@ -151,29 +152,21 @@ $('.dropdown-select').change(function() {
 });
 
 // Event listeners for pagination controls
-$('#prev-page').click(function() {
+$('#prev-page').click(function () {
     if (current_page > 1) {
         current_page--;
         fetchGpuRates(gpuType, sliderValue, current_page);
     }
 });
 
-$('#next-page').click(function() {
+$('#next-page').click(function () {
     if (current_page < total_pages) {
         current_page++;
         fetchGpuRates(gpuType, sliderValue, current_page);
     }
 });
 
-
-$('#select-cloud-btn').click(function() {
-    const selectedCloud = $('#dropdown3').val();
-    populateDropdown('#dropdown4', Object.keys(cloudGpuTypes[selectedCloud]));
-    const selectedGpu = $('#dropdown4').val();
-    populateDropdown('#dropdown5', cloudGpuTypes[selectedCloud][selectedGpu]);
-});
-
-$('#confirm').click(function() {
+$('#confirm').click(function () {
     const selectedCloud = $('#dropdown3').val();
     const selectedGpu = $('#dropdown4').val();
     const selectedGpuType = $('#dropdown5').val();
@@ -182,7 +175,7 @@ $('#confirm').click(function() {
 
     $('#input_cloud_creds').show();
 
-    switch(selectedCloud) {
+    switch (selectedCloud) {
         case 'AWS':
             $('#AWS').show();
             break;
@@ -194,7 +187,7 @@ $('#confirm').click(function() {
 
 
 // Submit button click event
-$('.gpu-submit').click(function() {
+$('.gpu-submit').click(function () {
     const container = $(this).closest('.gpu-container');
     sliderValue = container.find('.price-display').attr('data-price');
     gpuType = $(this).attr('data-gpu');
@@ -211,10 +204,9 @@ $('.gpu-submit').click(function() {
         url: `https://us-central1-demokratik-ai.cloudfunctions.net/get_gpu_rates_v2?gpu_type=${gpuType}&cost_limit=${sliderValue}`, // API endpoint
         method: 'GET',
         dataType: 'json',
-        success: function(data) {
+        success: function (data) {
             // console.log(data);
-            hideLoading();
-            
+
             //$('#select_cloud, #select_gpu_details').show();
 
             cloudGpuTypes = data.cloud_gpu_types;
@@ -222,10 +214,15 @@ $('.gpu-submit').click(function() {
             // console.log(keys);
             // Populate dropdowns
             populateDropdown('#dropdown3', keys);
+            selectedCloud = $('#dropdown3').val();
+            populateDropdown('#dropdown4', Object.keys(cloudGpuTypes[selectedCloud]));
+            selectedGpu = $('#dropdown4').val();
+            populateDropdown('#dropdown5', cloudGpuTypes[selectedCloud][selectedGpu]);
 
 
+            hideLoading();
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
             console.error(error);
             hideLoading();
         }
