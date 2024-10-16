@@ -227,6 +227,7 @@
             <option value="Are you looking for a GPU">Are you looking for a GPU</option>
             <option value="Do you have an LLM in mind">Do you have an LLM in mind</option>
         </select>
+        <div id="message-container1" style="margin-top: 10px; color: rgb(255, 255, 255); font-weight: bold;"></div>
     </div>
     <div class="dropdown-container" id="gpu_options">
         <label for="dropdown">GPU Options:</label>
@@ -235,6 +236,7 @@
             <option value="Do you want to view rate card across 20 GPU clouds">Do you want to view rate card across 20 GPU clouds</option>
             <option value="Do you have an LLM task in mind">Do you have an LLM task in mind</option>
         </select>
+        <div id="message-container2" style="margin-top: 10px; color: rgb(255, 255, 255); font-weight: bold;"></div>
     </div>
     <div class="container" id="gpu_prices_limit">
         <div class="gpu-container">
@@ -348,7 +350,7 @@
             <select id="dropdown5" class="dropdown-select">
             </select>
         </div>
-        <button class="ipython-button" id="confirm">Confirm Selection</button>
+        <button class="ipython-button" id="confirm">Finetune your favorite LLM</button>
     </div>
     <div id="input_cloud_creds">
         <div id="AWS">
@@ -371,6 +373,7 @@
         </div>        
         <button class="ipython-button" id="Submit">Submit</button>
     </div>
+    <div id="message-container3" style="margin-top: 10px; color: rgb(255, 255, 255); font-weight: bold;"></div>
     <script src="app.js"></script>
 </body>
 </html>
