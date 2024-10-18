@@ -136,7 +136,7 @@ $('.dropdown-select').change(function () {
             else if (selectedOption == "Do you have an LLM in mind") {
                 $('#message-container1').text("We are still working on this and plan to release it soon. Stay tuned. Gracias 🙏");
                 $('#gpu_options, #gpu_prices_limit, #rate_card, #select_cloud, #select_gpu_details, #input_cloud_creds').hide();
-                window.parent.postMessage({ type: 'dropdownChange', value: value }, "https://daffodil-gerbil-zhkw.squarespace.com");
+                window.parent.postMessage({ type: 'dropdownChange', value: selectedText }, "*");
             } else $('#gpu_options, #gpu_prices_limit, #rate_card, #select_cloud, #select_gpu_details, #input_cloud_creds').hide();
             break;
         case 'dropdown2':
