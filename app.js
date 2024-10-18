@@ -85,14 +85,11 @@ function fetchGpuRates(gpuType, sliderValue, page_number) {
             // console.log(data);
             $('#rate_card').show();
 
-            hideLoading();
-
             current_page = data.current_page;
             total_pages = data.total_pages;
 
             populateTable(data.gpu_rates, current_page, total_pages);
-
-            $('#select_cloud, #select_gpu_details').show();
+            hideLoading();
 
         },
         error: function (xhr, status, error) {
@@ -234,8 +231,8 @@ $('.gpu-submit').click(function () {
             selectedGpu = $('#dropdown4').val();
             populateDropdown('#dropdown5', cloudGpuTypes[selectedCloud][selectedGpu]);
 
+            $('#select_cloud, #select_gpu_details').show();
 
-            hideLoading();
         },
         error: function (xhr, status, error) {
             console.error(error);
