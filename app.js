@@ -136,7 +136,7 @@ $('.dropdown-select').change(function () {
             else if (selectedOption == "Do you have an LLM in mind") {
                 $('#message-container1').text("We are still working on this and plan to release it soon. Stay tuned. Gracias 🙏");
                 $('#gpu_options, #gpu_prices_limit, #rate_card, #select_cloud, #select_gpu_details, #input_cloud_creds').hide();
-                window.parent.postMessage({ type: 'dropdownChange', value: selectedText }, "*");
+                window.parent.postMessage({ type: 'scrollToEmail' }, "*");
             } else $('#gpu_options, #gpu_prices_limit, #rate_card, #select_cloud, #select_gpu_details, #input_cloud_creds').hide();
             break;
         case 'dropdown2':
@@ -144,6 +144,7 @@ $('.dropdown-select').change(function () {
             else if (selectedOption == "Do you have an LLM task in mind") {
                 $('#message-container2').text("We are still working on this and plan to release it soon. Stay tuned. Gracias 🙏");
                 $('#gpu_prices_limit, #rate_card, #select_cloud, #select_gpu_details, #input_cloud_creds').hide();
+                window.parent.postMessage({ type: 'scrollToEmail' }, "*");
             } else $('#gpu_prices_limit, #rate_card, #select_cloud, #select_gpu_details, #input_cloud_creds').hide();
             break;
         case 'dropdown3':
@@ -175,22 +176,23 @@ $('#next-page').click(function () {
 });
 
 $('#confirm').click(function () {
-    const selectedCloud = $('#dropdown3').val();
-    const selectedGpu = $('#dropdown4').val();
-    const selectedGpuType = $('#dropdown5').val();
+    window.parent.postMessage({ type: 'scrollToEmail' }, "*");
+    // const selectedCloud = $('#dropdown3').val();
+    // const selectedGpu = $('#dropdown4').val();
+    // const selectedGpuType = $('#dropdown5').val();
 
-    // console.log(selectedCloud, selectedGpu, selectedGpuType);
+    // // console.log(selectedCloud, selectedGpu, selectedGpuType);
 
-    $('#input_cloud_creds').show();
+    // $('#input_cloud_creds').show();
 
-    switch (selectedCloud) {
-        case 'AWS':
-            $('#AWS').show();
-            break;
-        default:
-            $('#input_cloud_creds').hide();
-            break;
-    }
+    // switch (selectedCloud) {
+    //     case 'AWS':
+    //         $('#AWS').show();
+    //         break;
+    //     default:
+    //         $('#input_cloud_creds').hide();
+    //         break;
+    // }
     $('#message-container3').text('We are still working on this and plan to release it soon. Stay tuned. Gracias 🙏').show();
 });
 
