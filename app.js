@@ -75,7 +75,7 @@ function populateDropdown(query, options) {
 
 // Function to fetch GPU rates
 function fetchGpuRates(gpuType, sliderValue, page_number) {
-    showLoading()
+    showLoading();
 
     $.ajax({
         url: `https://us-central1-demokratik-ai.cloudfunctions.net/get_gpu_rates?gpu_type=${gpuType}&cost_limit=${sliderValue}&page_number=${page_number}`, // API endpoint
@@ -91,9 +91,12 @@ function fetchGpuRates(gpuType, sliderValue, page_number) {
             populateTable(data.gpu_rates, current_page, total_pages);
 
             $('#select_cloud, #select_gpu_details').show();
+
+            hideLoading();
         },
         error: function (xhr, status, error) {
             console.error(error);
+            hideLoading();
         }
     });
 }
