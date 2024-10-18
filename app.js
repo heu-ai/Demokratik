@@ -85,6 +85,8 @@ function fetchGpuRates(gpuType, sliderValue, page_number) {
             // console.log(data);
             $('#rate_card').show();
 
+            hideLoading();
+
             current_page = data.current_page;
             total_pages = data.total_pages;
 
@@ -92,7 +94,6 @@ function fetchGpuRates(gpuType, sliderValue, page_number) {
 
             $('#select_cloud, #select_gpu_details').show();
 
-            hideLoading();
         },
         error: function (xhr, status, error) {
             console.error(error);
