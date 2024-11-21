@@ -240,3 +240,7 @@ $('.gpu-submit').click(function () {
         }
     });
 });
+
+
+$("#dropdown1").val("Are you looking for a GPU").change();
+$("#dropdown2").val("Do you want to view rate card across 20 GPU clouds").change();
